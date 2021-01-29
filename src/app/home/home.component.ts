@@ -1,0 +1,67 @@
+import { Biens } from './../models/biens';
+import { BiensService } from './../services/biens.service';
+import { Component, OnInit } from '@angular/core';
+import { MediasService } from '../services/medias.service';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent implements OnInit {
+
+   tabBien: any = [];
+   tabMedias: any = [];
+   tableau: any;
+   tablem: any;
+   image: any;
+   myid: any;
+   contenu: any;
+  constructor(private serviceB: BiensService, private serviceM: MediasService) {
+     this.getAllBie();
+     // this.getBienById(5)
+   }
+
+  ngOnInit(): void {
+  }
+
+
+  getAllBie(){
+
+
+
+    this.serviceB.getAllBien().subscribe(res => {
+      console.log('resultat objet biens:', res);
+      this.tabBien = Object.values(res)[3];
+
+      console.log('resultat du tableau :', this.tabBien);
+
+       // tslint:disable-next-line: prefer-for-of
+      for (let _i = 0; _i < this.tabBien.length; _i++){
+
+           this.tableau = this.tabBien[_i].id;
+
+           console.log('resultat du for :', this.tableau);
+          }
+
+    });
+
+    this.serviceM.getAllMedias().subscribe(donne => {
+      console.log(' donnée du medias objet :', donne);
+      this.tabMedias = Object.values(donne)[3];
+
+      console.log('données du tableau media :', this.tabMedias);
+
+      // tslint:disable-next-line: prefer-for-of
+      for (let i = 0; i < this.tabMedias.length; i++){
+
+          this.tablem = this.tabMedias[i].id;
+
+          console.log('resultat du for medias :', this.tablem);
+      }
+
+    });
+  }
+
+
+}

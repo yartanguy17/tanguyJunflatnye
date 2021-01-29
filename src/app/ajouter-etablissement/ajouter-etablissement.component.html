@@ -1,0 +1,152 @@
+<app-v-menu-bar></app-v-menu-bar>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+          <h6 class="text-center pb-3 pt-3 border-bottom border-warning mb-3 orange lighten-5 black-text">
+            <i class="icofont-plus"></i>&nbsp;
+            <small><b>Ajouter mon établissement</b></small>
+        </h6>
+
+        <table class="w-100">
+            <tr>
+                <td width="40">
+                    <a href="" class="btn btn-outline-pink rounded-circle text-center z-depth-0 p-0 m-0" style="height: 40px; width: 40px; line-height: 40px;">
+                        <b>1</b>
+                    </a>
+                </td>
+                <td>
+                    <div class="pb-1 grey lighten-3"></div>
+                </td>
+                <td width="40">
+                    <a href="" class="btn btn-outline-green disabled rounded-circle text-center z-depth-0 p-0 m-0" style="height: 40px; width: 40px; line-height: 40px;">
+                        <b>2</b>
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <form [formGroup]="biens" (ngSubmit)="sendBien()" class="mt-2">
+          <div class="md-form mb-0 mt-1">
+              <input type="text" id="text" class="form-control font-size-14 mb-0" placeholder="Titre" formControlName="titre">
+          </div>
+
+          <div class="md-form mb-0 mt-1">
+              <input type="text" id="localisation" class="form-control font-size-14 mb-0" placeholder="Coordonées GPS" formControlName="coordonnee">
+          </div>
+          <div class="md-form mb-0 mt-1">
+            <input type="text" id="ville" class="form-control font-size-14 mb-0" placeholder="Ville" formControlName="ville">
+        </div>
+        <div class="md-form mb-0 mt-1">
+          <input type="text" id="quartier" class="form-control font-size-14 mb-0" placeholder="Quartier" formControlName="quartier">
+      </div>
+      <div class="md-form mb-0 mt-1">
+        <input type="number" id="dimension" class="form-control font-size-14 mb-0" placeholder="Dimension" formControlName="dimension">
+    </div>
+    <div class="md-form mb-0 mt-1">
+      <input type="text" id="description" class="form-control font-size-14 mb-0" placeholder="Description" formControlName="description">
+  </div>
+
+          <div class="md-form mb-0 mt-1">
+              <input type="number" id="prix" class="form-control font-size-14 mb-0" placeholder="Prix" formControlName="prix">
+          </div>
+          <div class="md-form mb-0 mt-1">
+            <select class="form-control font-size-14 mb-0" formControlName="type">
+              <option value="">Type</option>
+              <option value="Tarrain">Tarrain</option>
+              <option value="Villa">Villa</option>
+              <option value="Maison">Maison</option>
+              <option value="Appartement">Appartement</option>
+              <option value="Chambre">Chambre</option>
+            </select>
+        </div>
+        <div class="md-form mb-0 mt-1">
+          <select class="form-control font-size-14 mb-0" formControlName="categorie">
+            <option value="">Catégorie</option>
+            <option value="Location">Location</option>
+            <option value="Vente">Vente</option>
+
+          </select>
+      </div>
+      <div class="md-form mb-0 mt-1">
+        <select class="form-control font-size-14 mb-0" formControlName="agence" *ngFor="let agence of tableauCompte">
+          <option value="">agence</option>
+          <option value="{{agence.id}}">{{agence.nom}}</option>
+
+
+        </select>
+    </div>
+
+          <button class="btn btn-primary btn-block btn-md rounded z-depth-0 mt-3">
+              Soumettre
+          </button>
+      </form>
+        </div>
+        <div class="col-lg-6">
+
+            <h6 class="text-center pb-3 pt-3 border-bottom border-warning mb-3 orange lighten-5 black-text">
+                <i class="icofont-plus"></i>&nbsp;
+                <small><b>Ajouter les images</b></small>
+            </h6>
+
+            <table class="w-100">
+                <tr>
+                    <td width="40">
+                        <a href="" class="btn btn-outline-pink rounded-circle text-center z-depth-0 p-0 m-0" style="height: 40px; width: 40px; line-height: 40px;">
+                            <b>1</b>
+                        </a>
+                    </td>
+                    <td>
+                        <div class="pb-1 grey lighten-3"></div>
+                    </td>
+                    <td width="40">
+                        <a href="" class="btn btn-outline-green disabled rounded-circle text-center z-depth-0 p-0 m-0" style="height: 40px; width: 40px; line-height: 40px;">
+                            <b>2</b>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+
+            <form [formGroup]="medias" class="mt-2" (ngSubmit)="sendMedias()" >
+                <div class="md-form mb-0 mt-1">
+                    <input type="text" id="text" class="form-control font-size-14 mb-0" placeholder="Titre" formControlName="titre"
+                    [ngClass]="{ 'is-invalid': submitted && fc.titre.errors }">
+                    <div *ngIf="submitted && fc.titre.errors" class="invalid-feedback">
+                      <div *ngIf="fc.titre.errors.required">Le titre est obligatoir</div>
+                  </div>
+                </div>
+                <div class="md-form mb-0 mt-1">
+                  <select class="form-control font-size-14 mb-0" formControlName="type"
+                  [ngClass]="{ 'is-invalid': submitted && fc.type.errors }">
+                    <option value="">Type</option>
+                    <option value="Location">Photo</option>
+                    <option value="Vente">Vidéo</option>
+
+                  </select>
+                </div>
+
+                <div class="md-form mb-0 mt-1">
+                  <span>Select Image</span>
+                   <input #imageInput
+                      type="file"
+                     accept="image/*"
+                    (change)="processFile(imageInput)">
+                </div>
+
+              <div class="md-form mb-0 mt-1">
+                <select class="form-control font-size-14 mb-0" formControlName="liaison"
+                [ngClass]="{ 'is-invalid': submitted && fc.liaison.errors }">
+                  <option value="">Liez à l'etablissement</option>
+                  <option value="Location">Photo</option>
+                  <option value="Vente">Vidéo</option>
+                </select>
+             </div>
+
+                <button  class="btn btn-primary btn-block btn-md rounded z-depth-0 mt-3">
+                    Envoyer
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
