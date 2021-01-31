@@ -22,6 +22,8 @@ export class HomeEtablissementComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('home etablissement');
+    
   }
 
 }

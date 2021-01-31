@@ -10,15 +10,18 @@
                 </h1>
                 <div class="sm-hide">
                     <h6 style="line-height: 30px;" class="mt-2 black-text">
-                        <b class="">On ne se contente pas seulement de vous donner, on vous donne en plus la possibilité de choisir selon vos moyens !</b>
+                        <b class="">On ne se contente pas seulement de vous donner, on vous donne en plus la possibilité
+                            de choisir selon vos moyens !</b>
                     </h6>
 
-                    <a  [routerLink]="['/house/search']" class="btn orange ml-0 z-depth-0 white-text" style="border-radius: 25px;">
+                    <a [routerLink]="['/house/search']" class="btn orange ml-0 z-depth-0 white-text"
+                        style="border-radius: 25px;">
                         <i class="icofont-search"></i>&nbsp;
                         <small><b>Rechercher</b></small>
                     </a>
 
-                    <a [routerLink]="['/houses/more']" class="btn btn-outline-primary ml-0 z-depth-0 white-text" style="border-radius: 25px;">
+                    <a [routerLink]="['/houses/more']" class="btn btn-outline-primary ml-0 z-depth-0 white-text"
+                        style="border-radius: 25px;">
                         <small><b>Découvrir plus</b></small>
                     </a>
                 </div>
@@ -30,18 +33,23 @@
 
                         <label class="mb-0 black-text mt-3 font-weight-bold"><b>Entrez le budget mensuel</b></label>
 
-                        <input type="number" required name="montant" id="montant" class="form-control form-control-lg font-size-16" style="height: 45px;" placeholder="Saisir dans le champs">
+                        <input type="number" required name="montant" id="montant"
+                            class="form-control form-control-lg font-size-16" style="height: 45px;"
+                            placeholder="Saisir dans le champs">
 
                         <table class="w-100">
                             <tr>
                                 <td width="33.33334%">
                                     <label class="mb-0 black-text mt-3 font-weight-bold"><b>Nombre pièces</b></label>
-                                    <input type="number" required name="montant" id="montant" min="1" max="10" class="form-control form-control-lg font-size-16" style="height: 45px;" value="1" placeholder="Saisir dans le champs">
+                                    <input type="number" required name="montant" id="montant" min="1" max="10"
+                                        class="form-control form-control-lg font-size-16" style="height: 45px;"
+                                        value="1" placeholder="Saisir dans le champs">
                                 </td>
                                 <td width="33.33334%">
                                     <label class="mb-0 black-text mt-3 font-weight-bold"><b>WC/D Interne</b></label>
                                     <div class="form-group mb-0">
-                                        <select required class="custom-select custom-select-lg font-size-16" style="height: 45px;" name="frequence" id="frequence">
+                                        <select required class="custom-select custom-select-lg font-size-16"
+                                            style="height: 45px;" name="frequence" id="frequence">
                                             <option selected disabled value="">Sélectionez ici</option>
                                             <option value="Oui">Oui</option>
                                             <option value="Non">Non</option>
@@ -51,7 +59,8 @@
                                 <td>
                                     <label class="mb-0 black-text mt-3 font-weight-bold"><b>Cuisine interne</b></label>
                                     <div class="form-group mb-0">
-                                        <select required class="custom-select custom-select-lg font-size-16" style="height: 45px;" name="frequence" id="frequence">
+                                        <select required class="custom-select custom-select-lg font-size-16"
+                                            style="height: 45px;" name="frequence" id="frequence">
                                             <option selected disabled value="">Sélectionez ici</option>
                                             <option value="Oui">Oui</option>
                                             <option value="Non">Non</option>
@@ -61,7 +70,8 @@
                             </tr>
                         </table>
 
-                        <a [routerLink]="['/search/result']" class="btn bg-primary white-text z-depth-0 rounded btn-block mt-3 mb-2">
+                        <a [routerLink]="['/search/result']"
+                            class="btn bg-primary white-text z-depth-0 rounded btn-block mt-3 mb-2">
                             <small><b>Soumettre le budget</b></small>
                         </a>
 
@@ -72,8 +82,34 @@
     </div>
 </div>
 
+<section class="row col-12 justify-content-center">
+    <div class="card col-3 m-3 p-0" *ngFor="let item of tabBien">
+        <div class="card-body">
+            
+            <a [routerLink]="['/house/bien/',item.id]" *ngFor="let pri of tabMedias">
+                <img src="{{pri.fichier}}" style="height: 100px;width: 100px;">
+            </a>
+        </div>
+        <div class="card-footer">
+            <a (click)="like(item)" class="float-right white-text"
+                style="margin-bottom: -50px; position: relative; padding: 10px; opacity: 0.8; text-shadow: 0 0 1px #000;">
+                <i class="icofont-heart icofont-2x"></i>
+            </a>
+            <a class="text-dark" [routerLink]="['/house/bien/',item.id]">
+               <h6 class="text-truncate">
+                <small><b>{{item.titre}} </b></small>
+            </h6>
+            <small>
+                <i class="icofont-coins"></i>
+                {{item.prix}} XOF/Mois
+            </small> 
+            </a>
+            
+        </div>
+    </div>
+</section>
 
-<section class="customer-logos slider" style="overflow: hidden;">
+<!-- <section class="customer-logos slider" style="overflow: hidden;">
     <div class="slide" *ngFor="let prix of tabBien"  style="float: left; margin-right: auto;">
         <a href="#!" class="float-right white-text" style="margin-bottom: -50px; position: relative; padding: 10px; opacity: 0.8; text-shadow: 0 0 1px #000;">
             <i class="icofont-heart icofont-2x"></i>
@@ -92,14 +128,17 @@
         </div>
     </div>
 
-</section>
+
+</section> -->
 <br />
 
 <div class="border-top border-bottom font-size-14 pt-3 pb-3">
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <b>Si vous êtes aussi dans le domaine et que vous voulez voir votre maison par celles-ci, <a [routerLink]="['users/etablissement/register']" class="orange-text">Ajoutez votre établissement</a></b>
+                <b>Si vous êtes aussi dans le domaine et que vous voulez voir votre maison par celles-ci, <a
+                        [routerLink]="['users/etablissement/register']" class="orange-text">Ajoutez votre
+                        établissement</a></b>
             </div>
         </div>
     </div>
@@ -122,7 +161,8 @@
                 <b>Trouvez des logements proches à votre lieu de travail, école, retaurant en quelques secondes ...</b>
             </div><br />
 
-            <a [routerLink]="['/house/search']" class="btn btn-md bg-primary white-text z-depth-0" style="border-radius: 25px;">
+            <a [routerLink]="['/house/search']" class="btn btn-md bg-primary white-text z-depth-0"
+                style="border-radius: 25px;">
                 <i class="icofont-search"></i>&nbsp;
                 <b>Lancer la recherche</b>
             </a>
@@ -139,7 +179,8 @@
                         <b>Ne rattez plus les promotions !</b>
                     </div>
                     <div>
-                        <span style="color: #e5f3fa;">Inscrivez vous et restez informé de nos différentes promotions et offres spéciales</span>
+                        <span style="color: #e5f3fa;">Inscrivez vous et restez informé de nos différentes promotions et
+                            offres spéciales</span>
                     </div>
                 </div>
             </div>
@@ -195,7 +236,8 @@
                 <a href="mailto:onehouse@gmail.com"><b>onehouse@gmail.com</b></a>
 
                 <div class="pt-3">
-                    <b><a [routerLink]="['/contact']" class="orange-text">Cliquez ici</a> pour nous écrire directement</b>
+                    <b><a [routerLink]="['/contact']" class="orange-text">Cliquez ici</a> pour nous écrire
+                        directement</b>
                 </div>
             </div>
         </div>
@@ -209,9 +251,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Termes et conditions d'utilisation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 ...

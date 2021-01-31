@@ -11,33 +11,47 @@ import { MediasService } from '../services/medias.service';
   styleUrls: ['./details-house.component.css']
 })
 export class DetailsHouseComponent implements OnInit {
+
   public produit: Observable<any>|Promise<any>|any;
   public medias: Observable<any>|Promise<any>|any;
   public mediasall: Observable<any>|Promise<any>|any;
   mediasId: any;
   mediasid: any;
+
   constructor(private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private route: ActivatedRoute,
     private serviceB: BiensService,
     private mediasService: MediasService) {
+
     this.route.params.subscribe(params => {
       const id = params['id'];
-      console.log('id = ',id);
-      this.serviceB.getBienById(id).subscribe(bien => {
+      // console.log('id = ',id);
+      this.serviceB.getBienById(id).subscribe((bien: any) => {
+        console.log('bien', bien);
+        
        this.produit = bien;
        this.mediasall = bien;
 
       this.mediasId = Object.values(this.mediasall)[0];
       this.mediasid = this.mediasId.id;
-       // this.mediasId= this.mediasall.id;
-       console.log('produit = ', this.produit);
-       console.log('medias = ', this.mediasall);
-       console.log('medias id = ', this.mediasid);
-       this.mediasService.geMediasById(this.mediasid).subscribe(medias => {
-        this.medias = medias;
-        console.log('medias fin id = ', this.medias);
-      });
+      this.medias = bien.media_set;
+      console.log(this.medias)
+
+      //  // this.mediasId= this.mediasall.id;
+      //  console.log('produit = ', this.produit);
+      //  console.log('medias = ', this.mediasall);
+      //  console.log('medias id = ', bien.id);
+      //  this.mediasService.geMediasById(bien.id).subscribe(medias => {
+      //    console.log('media', medias);
+         
+      //   this.medias = medias;
+      // });
+
+      this.mediasService.geMediasById(bien.id).toPromise()
+      .then((media: any)=> {
+        // console.log('media', media);
+      }).catch(err => console.log('err', err))
      });
    });
 
